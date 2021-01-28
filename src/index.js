@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-
+//直接将所有的 state 状态数据存储在 Board 父组件当中。之后 Board 组件可以将这些数据通过 props 传递给各个 Square 子组件
 class Square extends React.Component {
   //向 class 中添加一个构造函数，用来初始化 state
   constructor(props) {
@@ -13,12 +13,12 @@ class Square extends React.Component {
     };
   }
   render() {
-    return (
+    return (//从 Board 组件向 Square 组件中传递两个 props 参数：value 和 onClick
       <button 
         className="square" 
-        onClick={() => this.setState({value:'X'})}
+        onClick={() => this.props.onClick()}
       >
-        {this.state.value}
+        {this.props.value}
       </button>
       //在 React 应用中，数据通过 props 的传递，从父组件流向子组件
     );
@@ -26,9 +26,28 @@ class Square extends React.Component {
 }
 
 class Board extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      squares: Array(9).fill(null),
+    }
+  }
+  handleClick(i) {
+    const squares = this.state.squares.slice();
+    squares[i] = "X";
+    this.setState({squares: squares});
+  }
   renderSquare(i) {
-    return <Square value={i} />;  
+    return (
+      <Square 
+        value={this.state.squares[i]} 
+        onClick={() => this.handleClick(i)}
+      />
+    )
      //一个 prop 从父组件 Board “传递”给了子组件 Square
+     //为了提高可读性，我们把返回的 React 元素拆分成了多行，同时在最外层加了小括号
+     //这样 JavaScript 解析的时候就不会在 return 的后面自动插入一个分号从而破坏代码结构了
+     
   }
 
   render() {
