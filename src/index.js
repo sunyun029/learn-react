@@ -1,6 +1,38 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+class Clock extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {date: new Date()};
+  }
+//生命周期方法
+  componentDidMount() {
+    this.timerID = setInterval( 
+      ()=> this.tick(),
+      1000
+    )
+  }
+
+  componentWillUnmount() {
+   clearInterval(this.timerID);
+  }
+  tick(){
+    this.setState({
+      date: new Date()  
+    },
+    console.log(1)
+    )
+  }
+  render() {
+    return (
+      <div>
+        <p>Hello, world!</p>
+        <p>It is {this.state.date.toLocaleTimeString()}.</p>
+      </div>
+    );
+  }
+}
 //直接将所有的 state 状态数据存储在 Board 父组件当中。之后 Board 组件可以将这些数据通过 props 传递给各个 Square 子组件
 class Square extends React.Component {
   //向 class 中添加一个构造函数，用来初始化 state
@@ -180,6 +212,7 @@ function UserInfo(props) {
 function Comment(props){
   return(
     <div className="Comment">
+      <Clock/>
       <UserInfo user= {props.author}/>
       <div className="Comment-text">
         {props.text}
@@ -199,6 +232,7 @@ const comment = {
   },
 };
 ReactDOM.render(
+  // <Clock />,
   <Comment
     date={comment.date}
     text={comment.text}
