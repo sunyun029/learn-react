@@ -4,14 +4,31 @@ import './index.css';
 class Clock extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {date: new Date()};
+    this.state = {
+      date: new Date(),
+      posts:[],
+      comments:[]
+    };
   }
 //生命周期方法
   componentDidMount() {
     this.timerID = setInterval( 
       ()=> this.tick(),
       1000
-    )
+    );
+    // fetchPosts().then(response => {
+    //   this.setState({
+    //     posts: response.posts
+    //   });
+    // });
+
+    // fetchComments().then(response => {
+    //   this.setState({
+    //     comments: response.comments
+    //   });
+    // });
+    //这里的合并是浅合并，所以 this.setState({comments}) 完整保留了 this.state.posts 
+    //但是完全替换了 this.state.comments
   }
 
   componentWillUnmount() {
@@ -21,7 +38,6 @@ class Clock extends React.Component {
     this.setState({
       date: new Date()  
     },
-    console.log(1)
     )
   }
   render() {
