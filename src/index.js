@@ -4,14 +4,31 @@ import './index.css';
 class Clock extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {date: new Date()};
+    this.state = {
+      date: new Date(),
+      posts:[],
+      comments:[]
+    };
   }
 //生命周期方法
   componentDidMount() {
     this.timerID = setInterval( 
       ()=> this.tick(),
       1000
-    )
+    );
+    // fetchPosts().then(response => {
+    //   this.setState({
+    //     posts: response.posts
+    //   });
+    // });
+
+    // fetchComments().then(response => {
+    //   this.setState({
+    //     comments: response.comments
+    //   });
+    // });
+    //这里的合并是浅合并，所以 this.setState({comments}) 完整保留了 this.state.posts 
+    //但是完全替换了 this.state.comments
   }
 
   componentWillUnmount() {
@@ -21,7 +38,6 @@ class Clock extends React.Component {
     this.setState({
       date: new Date()  
     },
-    console.log(1)
     )
   }
   render() {
@@ -154,6 +170,19 @@ function getGreeting(user){
   }
   return <h1>hello,stranger.</h1>
 }
+//事件处理
+function ActionLink() {
+  function handleClick(e) {
+    e.preventDefault();
+    console.log('The link was clicked.');
+  }
+
+  return (
+    <a href="#" onClick={handleClick}>
+      Click me
+    </a>
+  );
+}
 // const element = (
 //   <div>
 //     <img src={user.avatarUrl} />
@@ -212,6 +241,7 @@ function UserInfo(props) {
 function Comment(props){
   return(
     <div className="Comment">
+      <ActionLink/>
       <Clock/>
       <UserInfo user= {props.author}/>
       <div className="Comment-text">
@@ -220,6 +250,7 @@ function Comment(props){
       <div className="Comment-date">
         {formatDate(props.date)}
       </div>
+      <Clock/>
     </div>
   );
 }
