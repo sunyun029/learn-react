@@ -170,6 +170,19 @@ function getGreeting(user){
   }
   return <h1>hello,stranger.</h1>
 }
+//事件处理
+function ActionLink() {
+  function handleClick(e) {
+    e.preventDefault();
+    console.log('The link was clicked.');
+  }
+
+  return (
+    <a href="#" onClick={handleClick}>
+      Click me
+    </a>
+  );
+}
 // const element = (
 //   <div>
 //     <img src={user.avatarUrl} />
@@ -228,6 +241,7 @@ function UserInfo(props) {
 function Comment(props){
   return(
     <div className="Comment">
+      <ActionLink/>
       <Clock/>
       <UserInfo user= {props.author}/>
       <div className="Comment-text">
@@ -236,6 +250,7 @@ function Comment(props){
       <div className="Comment-date">
         {formatDate(props.date)}
       </div>
+      <Clock/>
     </div>
   );
 }
