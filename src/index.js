@@ -17,7 +17,7 @@ class Clock extends React.Component {
       1000
     );
     // fetchPosts().then(response => {
-    //   this.setState({
+    //   this.setState({ 
     //     posts: response.posts
     //   });
     // });
@@ -46,6 +46,23 @@ class Clock extends React.Component {
         <p>Hello, world!</p>
         <p>It is {this.state.date.toLocaleTimeString()}.</p>
       </div>
+    );
+  }
+}
+//浅比较
+class CounterButton extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {count: 1};
+  }
+
+  render() {
+    return (
+      <button
+        color={this.props.color}
+        onClick={() => this.setState(state => ({count: state.count + 1}))}>
+        Count: {this.state.count}
+      </button>
     );
   }
 }
@@ -184,7 +201,7 @@ function ActionLink() {
   );
 }
 // const element = (
-//   <div>
+//   <div> 
 //     <img src={user.avatarUrl} />
 //     <h1>Hello!</h1>
 //     <h2>Good to see you here.</h2>
@@ -243,6 +260,7 @@ function Comment(props){
     <div className="Comment">
       <ActionLink/>
       <Clock/>
+      <CounterButton/>
       <UserInfo user= {props.author}/>
       <div className="Comment-text">
         {props.text}
@@ -271,6 +289,78 @@ ReactDOM.render(
   />,
   document.getElementById('root')
 );
+// These two containers are siblings in the DOM
+const appRoot = document.getElementById('app-root');
+const modalRoot = document.getElementById('modal-root');
+
+class Modal extends React.Component {
+  constructor(props) {
+    super(props);
+    this.el = document.createElement('div');
+  }
+
+  componentDidMount() {
+    modalRoot.appendChild(this.el);
+  }
+
+  componentWillUnmount() {
+    modalRoot.removeChild(this.el);
+  }
+  
+  render() {
+    return ReactDOM.createPortal(
+      this.props.children,
+      this.el,
+    );
+  }
+}
+
+class Parent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {clicks: 0};
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick() {
+    // This will fire when the button in Child is clicked,
+    // updating Parent's state, even though button
+    // is not direct descendant in the DOM. 
+    this.setState(prevState => ({
+      clicks: prevState.clicks + 1
+    }));
+  }
+
+  render() {
+    return (
+      <div onClick={this.handleClick}>
+        <p>Number of clicks: {this.state.clicks}</p>
+        <p>
+          Open up the browser DevTools
+          to observe that the button
+          is not a child of the div
+          with the onClick handler.
+        </p>
+        <Modal>
+          <Child />
+        </Modal>
+      </div>
+    );
+  }
+}
+
+function Child() {
+  // The click event on this button will bubble up to parent,
+  // because there is no 'onClick' attribute defined
+  return (
+    <div className="modal">
+      <button>Click</button>
+    </div>
+  );
+}
+
+ReactDOM.render(<Parent />, appRoot);
+
 // const element = <Welcome name="Sara" />;
 // ReactDOM.render(
 //   element,
