@@ -256,8 +256,13 @@ function UserInfo(props) {
 }
 
 function Comment(props){
+  var myStyle = {
+    fontSize: 30,
+    color: '#61DAFB'
+  };
   return(
     <div className="Comment">
+      <h2 style={myStyle}>learn-react</h2>
       <ActionLink/>
       <Clock/>
       <CounterButton/>
@@ -272,6 +277,7 @@ function Comment(props){
     </div>
   );
 }
+
 const comment = {
   date: new Date(),
   text: 'I hope you enjoy learning React!',
