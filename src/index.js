@@ -260,9 +260,14 @@ function Comment(props){
     fontSize: 30,
     color: '#61DAFB'
   };
+  var arr = [
+    <h4>react教程</h4>,
+    <h5>学的不仅是技术，更是梦想！</h5>,
+  ];
   return(
     <div className="Comment">
       <h2 style={myStyle}>learn-react</h2>
+      <div>{arr}</div>
       <ActionLink/>
       <Clock/>
       <CounterButton/>
