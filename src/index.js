@@ -154,22 +154,6 @@ class Board extends React.Component {
   }
 }
 
-class Game extends React.Component {
-  render() {
-    return (
-      <div className="game">
-        <div className="game-board">
-          <Board />
-        </div>
-        <div className="game-info">
-          <div>{/* status */}</div>
-          <ol>{/* TODO */}</ol>
-        </div>
-      </div>
-    );
-  }
-}
-
 const user = {
   firstName:'Happer',
   lastName:'Peraz',
@@ -220,7 +204,7 @@ function ActionLink() {
 // setInterval(tick, 1000);
 
 function Welcome(props) {
-  return <h1>Hello, {props.name}</h1>;
+  return <h5>Hello, {props.name}</h5>;
 }
 
 function App() {
@@ -267,7 +251,7 @@ function Comment(props){
   return(
     <div className="Comment">
       <h2 style={myStyle}>learn-react</h2>
-      <div>{arr}</div>
+      <div className="list">{arr}</div>
       <ActionLink/>
       <Clock/>
       <CounterButton/>
@@ -303,6 +287,7 @@ ReactDOM.render(
 // These two containers are siblings in the DOM
 const appRoot = document.getElementById('app-root');
 const modalRoot = document.getElementById('modal-root');
+
 
 class Modal extends React.Component {
   constructor(props) {
@@ -371,17 +356,23 @@ function Child() {
 }
 
 ReactDOM.render(<Parent />, appRoot);
-
-// const element = <Welcome name="Sara" />;
+function Sara() {
+  return (
+    <div>
+      Sara
+    </div>
+  );
+}
+const element = <Welcome name="Sara" />;
 // ReactDOM.render(
 //   element,
 //   document.getElementById('root')
 // );
 // ========================================
-// ReactDOM.render(
-//   element,
-//   document.getElementById('root')
-// );
+ReactDOM.render(
+  <Sara/>,
+  document.getElementById('test')
+);
 // ReactDOM.render(
 //   element,
 //   <Game />,
