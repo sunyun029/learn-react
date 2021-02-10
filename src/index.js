@@ -251,7 +251,11 @@ function Comment(props){
   return(
     <div className="Comment">
       <h2 style={myStyle}>learn-react</h2>
+<<<<<<< HEAD
       <div className="list">{arr}</div>
+=======
+      <div>{arr}</div>
+>>>>>>> f41fc40ff130af18682db8584594538e6aff570f
       <ActionLink/>
       <Clock/>
       <CounterButton/>
