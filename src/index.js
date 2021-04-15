@@ -360,6 +360,8 @@ function Sara() {
   return (
     <div>
       Sara
+      <div className="aa">菜鸟教程</div>
+      <div style={{height: 50}}>菜鸟教程</div>,
     </div>
   );
 }
@@ -371,6 +373,7 @@ const element = <Welcome name="Sara" />;
 // ========================================
 ReactDOM.render(
   <Sara/>,
+  // <Niuke/>,
   document.getElementById('test')
 );
 // ReactDOM.render(
